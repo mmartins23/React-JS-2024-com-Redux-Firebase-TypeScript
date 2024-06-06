@@ -13,11 +13,32 @@ function TodosList() {
 
   const [todos, setTodos] = useState(initialTodos);
 
+  const handleDelete = (id) => {
+    if (confirm("Are you sure you want to delete?")) {
+      setTodos(todos.filter(todo => todo.id !== id));
+    }
+  }
+
+  const handleToggle = (id) => {
+    setTodos(todos.map(todo => {
+      if (todo.id === id) {
+        todo.isDone = !todo.isDone;
+        return todo;
+      } else {
+        return todo;
+      }
+    }))
+  }
+
   return (
     <>
       <div className="todos">
         {todos.map(todo => (
-          <Todo key={todo.id} todo={todo} />
+          <Todo
+            key={todo.id}
+            todo={todo}
+            deleteTodo={(id) => handleDelete(id)}
+            toggleTodo={(id) => handleToggle(id)} />
         ))}
       </div>
     </>
