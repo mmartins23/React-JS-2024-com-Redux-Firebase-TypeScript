@@ -1,13 +1,19 @@
-// CSS Styles
+import { useContext } from 'react';
+import { TodosContext } from '../context/TodosContext'; 
 import './Todo.scss';
 
-function Todo({ todo, deleteTodo, toggleTodo }) {
+function Todo({ todo }) {
+
+    const store = useContext(TodosContext);
 
     return (
         <>
             <div className={`todo ${todo.isDone ? 'done' : ''}`}>
                 <button
-                    onClick={() => deleteTodo(todo.id)}
+                    onClick={() => store.dispatch({
+                        type: 'deleted',
+                        id: todo.id
+                    })}
                     className="erase">
                     x erase
                 </button>
@@ -19,7 +25,10 @@ function Todo({ todo, deleteTodo, toggleTodo }) {
                 </p>
                 <div className="task-check">
                     <input
-                        onClick={() => toggleTodo(todo.id)}
+                        onClick={() => store.dispatch({
+                            type: 'toggledIsDone',
+                            id: todo.id
+                        })}
                         type="checkbox"
                         defaultChecked={todo.isDone} />
                     <label>
