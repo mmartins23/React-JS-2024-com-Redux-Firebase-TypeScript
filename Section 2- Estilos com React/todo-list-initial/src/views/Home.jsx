@@ -2,14 +2,17 @@ import Filter from '../components/Filter.jsx';
 import TodosList from '../components/TodosList.jsx';
 import AddTodoModal from '../modals/AddTodoModal.jsx';
 import ModalWindow from '../modals/ModalWindow.jsx';
+import { useTodos } from '../context/TodosContext.jsx';
 
 function Home() {
 
+    const store = useTodos();
     return (
         <>
-            <ModalWindow>
-                <AddTodoModal/>
-            </ModalWindow>
+            {store.modalIsActive &&
+                <ModalWindow>
+                    <AddTodoModal />
+                </ModalWindow>}
             <div className="container">
                 <Filter />
                 <TodosList />
